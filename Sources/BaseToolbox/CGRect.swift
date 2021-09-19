@@ -12,6 +12,12 @@ extension CGRect {
   public var transposed: CGRect {
     CGRect(origin: origin.transposed, size: size.transposed)
   }
+
+  /// force positive width and height
+  /// (0, 0, -100, -100) -> (-100, -100, 100, 100)
+  public var normalized: CGRect {
+    return CGRect(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
+  }
   
   public var topLeft: CGPoint {
     CGPoint(x: minX, y: minY)
