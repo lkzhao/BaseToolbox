@@ -51,6 +51,24 @@ extension CGRect: Hashable {
   }
 }
 
+// MARK: - CGRect CGFloat operations
+
+public func + (left: CGRect, right: CGFloat) -> CGRect {
+  CGRect(origin: left.origin + right, size: left.size + right)
+}
+
+public func - (left: CGRect, right: CGFloat) -> CGRect {
+  CGRect(origin: left.origin - right, size: left.size - right)
+}
+
+public func * (left: CGRect, right: CGFloat) -> CGRect {
+  CGRect(origin: left.origin * right, size: left.size * right)
+}
+
+public func / (left: CGRect, right: CGFloat) -> CGRect {
+  CGRect(origin: left.origin / right, size: left.size / right)
+}
+
 // MARK: - CGRect CGPoint operations
 
 public func + (left: CGRect, right: CGPoint) -> CGRect {
