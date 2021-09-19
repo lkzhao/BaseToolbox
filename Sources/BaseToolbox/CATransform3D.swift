@@ -15,6 +15,18 @@ extension CATransform3D {
     CATransform3DGetAffineTransform(self)
   }
 
+  init(affineTransform: CGAffineTransform) {
+    self = CATransform3DMakeAffineTransform(affineTransform)
+  }
+}
+
+extension CATransform3D: Equatable {
+  public static func == (lhs: CATransform3D, rhs: CATransform3D) -> Bool {
+    CATransform3DEqualToTransform(lhs, rhs)
+  }
+}
+
+extension CATransform3D {
   public func translatedBy(x: CGFloat = 0, y: CGFloat = 0, z: CGFloat = 0) -> CATransform3D {
     CATransform3DTranslate(self, x, y, z)
   }
@@ -29,6 +41,10 @@ extension CATransform3D {
   
   public func scaledBy(_ scale: CGFloat) -> CATransform3D {
     CATransform3DScale(self, scale, scale, 1)
+  }
+  
+  public func scaledBy(_ scale: CGSize) -> CATransform3D {
+    CATransform3DScale(self, scale.width, scale.height, 1)
   }
 
   public func rotatedBy(angle: CGFloat, x: CGFloat, y: CGFloat, z: CGFloat) -> CATransform3D {
@@ -64,14 +80,58 @@ extension CATransform3D {
   public func concatenating(_ t2: CATransform3D) -> CATransform3D {
     CATransform3DConcat(self, t2)
   }
-
-  init(affineTransform: CGAffineTransform) {
-    self = CATransform3DMakeAffineTransform(affineTransform)
-  }
 }
 
-extension CATransform3D: Equatable {
-  public static func == (lhs: CATransform3D, rhs: CATransform3D) -> Bool {
-    CATransform3DEqualToTransform(lhs, rhs)
+extension CATransform3D {
+  public mutating func translateBy(x: CGFloat = 0, y: CGFloat = 0, z: CGFloat = 0) {
+    self = translatedBy(x: x, y: y, z: z)
+  }
+  
+  public mutating func translateBy(_ point: CGPoint) {
+    self = translatedBy(point)
+  }
+
+  public mutating func scaleBy(x: CGFloat = 1, y: CGFloat = 1, z: CGFloat = 1) {
+    self = scaledBy(x: x, y: y, z: z)
+  }
+  
+  public mutating func scaleBy(_ scale: CGFloat) {
+    self = scaledBy(scale)
+  }
+  
+  public mutating func scaleBy(_ scale: CGSize) {
+    self = scaledBy(scale)
+  }
+
+  public mutating func rotateBy(angle: CGFloat, x: CGFloat, y: CGFloat, z: CGFloat) {
+    self = rotatedBy(angle: angle, x: x, y: y, z: z)
+  }
+
+  public mutating func rotateBy(x: CGFloat) {
+    self = rotatedBy(x: x)
+  }
+
+  public mutating func rotateBy(y: CGFloat) {
+    self = rotatedBy(y: y)
+  }
+
+  public mutating func rotateBy(z: CGFloat) {
+    self = rotatedBy(z: z)
+  }
+  
+  public mutating func rotateBy(_ angle: CGFloat) {
+    self = rotatedBy(angle)
+  }
+
+  public mutating func perspective(m34: CGFloat) {
+    self.m34 = m34
+  }
+
+  public mutating func invert() {
+    self = inverted()
+  }
+
+  public mutating func concatenate(_ t2: CATransform3D) {
+    self = concatenating(t2)
   }
 }
