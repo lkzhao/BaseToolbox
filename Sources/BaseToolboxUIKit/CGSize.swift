@@ -1,7 +1,7 @@
 import UIKit
 
 extension CGSize {
-  var roundedToPixelBoundary: CGSize {
+  public var roundedToPixelBoundary: CGSize {
     rounded(UIScreen.main.scale)
   }
 

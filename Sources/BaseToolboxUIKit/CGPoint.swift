@@ -1,7 +1,7 @@
 import UIKit
 
 extension CGPoint {
-  var roundedToPixelBoundary: CGPoint {
+  public var roundedToPixelBoundary: CGPoint {
     rounded(UIScreen.main.scale)
   }
 }
