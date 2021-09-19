@@ -48,3 +48,11 @@ extension RandomAccessCollection {
     return nil
   }
 }
+
+extension Array {
+  public func indexes(where checker: (Element) -> Bool) -> [Int] {
+    enumerated().compactMap {
+      checker($0.element) ? $0.offset : nil
+    }
+  }
+}
