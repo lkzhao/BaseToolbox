@@ -1,6 +1,10 @@
 import UIKit
 
 extension CGRect {
+  public var roundedToPixelBoundary: CGRect {
+    CGRect(origin: origin.roundedToPixelBoundary, size: size.roundedToPixelBoundary)
+  }
+
   public func closestCorner(point: CGPoint) -> UIRectCorner {
     let corners: [(point: CGPoint, corner: UIRectCorner)] = [
       (topLeft, .topLeft),

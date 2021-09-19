@@ -32,6 +32,10 @@ extension CGRect {
   public init(center: CGPoint, size: CGSize) {
     self.init(origin: center - size / 2, size: size)
   }
+
+  public func rounded(_ scale: CGFloat = 1) -> CGRect {
+    CGRect(origin: origin.rounded(scale), size: size.rounded(scale))
+  }
 }
 
 extension CGRect: Hashable {

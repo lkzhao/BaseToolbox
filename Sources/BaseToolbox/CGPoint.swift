@@ -24,6 +24,10 @@ extension CGPoint {
   public func clamp(to rect: CGRect) -> CGPoint {
     CGPoint(x: x.clamp(rect.minX, rect.maxX), y: y.clamp(rect.minY, rect.maxY))
   }
+
+  public func rounded(_ scale: CGFloat = 1) -> CGPoint {
+    CGPoint(x: (x * scale).rounded() / scale, y: (y * scale).rounded() / scale)
+  }
 }
 
 extension CGPoint: Hashable {

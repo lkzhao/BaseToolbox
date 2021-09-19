@@ -24,6 +24,10 @@ extension CGSize {
   public func size(fitIfBigger fit: CGSize) -> CGSize {
     self * min(1, min(fit.width / width, fit.height / height))
   }
+
+  public func rounded(_ scale: CGFloat = 1) -> CGSize {
+    CGSize(width: (width * scale).rounded(.up) / scale, height: (height * scale).rounded(.up) / scale)
+  }
 }
 
 extension CGSize: Hashable {
