@@ -18,25 +18,37 @@ extension CATransform3D {
   public func translatedBy(x: CGFloat = 0, y: CGFloat = 0, z: CGFloat = 0) -> CATransform3D {
     CATransform3DTranslate(self, x, y, z)
   }
-
-  public func scaledBy(x: CGFloat = 0, y: CGFloat = 0, z: CGFloat = 0) -> CATransform3D {
-    CATransform3DScale(self, x, y, z)
+  
+  public func translatedBy(_ point: CGPoint) -> CATransform3D {
+    CATransform3DTranslate(self, point.x, point.y, 0)
   }
 
-  public func rotated(by angle: CGFloat, x: CGFloat, y: CGFloat, z: CGFloat) -> CATransform3D {
+  public func scaledBy(x: CGFloat = 1, y: CGFloat = 1, z: CGFloat = 1) -> CATransform3D {
+    CATransform3DScale(self, x, y, z)
+  }
+  
+  public func scaledBy(_ scale: CGFloat) -> CATransform3D {
+    CATransform3DScale(self, scale, scale, 1)
+  }
+
+  public func rotatedBy(angle: CGFloat, x: CGFloat, y: CGFloat, z: CGFloat) -> CATransform3D {
     CATransform3DRotate(self, angle, x, y, z)
   }
 
-  public func rotated(x: CGFloat) -> CATransform3D {
+  public func rotatedBy(x: CGFloat) -> CATransform3D {
     CATransform3DRotate(self, x, 1, 0, 0)
   }
 
-  public func rotated(y: CGFloat) -> CATransform3D {
+  public func rotatedBy(y: CGFloat) -> CATransform3D {
     CATransform3DRotate(self, y, 0, 1, 0)
   }
 
-  public func rotated(z: CGFloat) -> CATransform3D {
+  public func rotatedBy(z: CGFloat) -> CATransform3D {
     CATransform3DRotate(self, z, 0, 0, 1)
+  }
+  
+  public func rotatedBy(_ angle: CGFloat) -> CATransform3D {
+    CATransform3DRotate(self, angle, 0, 0, 1)
   }
 
   public func withPerspective(m34: CGFloat) -> CATransform3D {
