@@ -1,4 +1,5 @@
 import UIKit
+import BaseToolboxCoreGraphics
 
 extension UIView {
   private struct AssociateKey {
