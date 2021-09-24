@@ -218,9 +218,9 @@ extension UIView {
   ///
   /// - Returns: The `UIImage` snapshot.
 
-  public func snapshot(of rect: CGRect? = nil, afterScreenUpdates _: Bool = true) -> UIImage {
+  public func snapshot(of rect: CGRect? = nil, afterScreenUpdates: Bool = true) -> UIImage {
     UIGraphicsImageRenderer(bounds: rect ?? bounds).image { _ in
-      drawHierarchy(in: bounds, afterScreenUpdates: true)
+      drawHierarchy(in: bounds, afterScreenUpdates: afterScreenUpdates)
     }
   }
 
