@@ -1,13 +1,8 @@
 import Foundation
 
 extension Encodable {
-  public func write(to url: URL) {
-    let sessionFileData = try! JSONEncoder().encode(self)
-    do {
-      try sessionFileData.write(to: url)
-    } catch {
-      print("[SessionManager] error writing session data to ", url, error)
-    }
+  public func write(to url: URL) throws {
+    try JSONEncoder().encode(self).write(to: url)
   }
 
   public var jsonString: String {
