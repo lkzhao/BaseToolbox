@@ -12,6 +12,16 @@ extension UIView {
         get { layer.cornerRadius }
         set { layer.cornerRadius = newValue }
     }
+  
+    open var cornerCurve: CALayerCornerCurve {
+        get { layer.cornerCurve }
+        set { layer.cornerCurve = newValue }
+    }
+    
+    open var maskedCorners: CACornerMask {
+        get { layer.maskedCorners }
+        set { layer.maskedCorners = newValue }
+    }
     
     open var zPosition: CGFloat {
         get { layer.zPosition }
