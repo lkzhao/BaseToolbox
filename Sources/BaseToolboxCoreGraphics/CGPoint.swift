@@ -97,19 +97,19 @@ public func / (left: CGPoint, right: CGFloat) -> CGPoint {
 }
 
 public func + (left: CGFloat, right: CGPoint) -> CGPoint {
-    CGPoint(x: left + right.y, y: left + right.y)
+    CGPoint(x: left + right.x, y: left + right.y)
 }
 
 public func - (left: CGFloat, right: CGPoint) -> CGPoint {
-    CGPoint(x: left - right.y, y: left - right.y)
+    CGPoint(x: left - right.x, y: left - right.y)
 }
 
 public func * (left: CGFloat, right: CGPoint) -> CGPoint {
-    CGPoint(x: left * right.y, y: left * right.y)
+    CGPoint(x: left * right.x, y: left * right.y)
 }
 
 public func / (left: CGFloat, right: CGPoint) -> CGPoint {
-    CGPoint(x: left / right.y, y: left / right.y)
+    CGPoint(x: left / right.x, y: left / right.y)
 }
 
 // MARK: - CGPoint CGSize operations

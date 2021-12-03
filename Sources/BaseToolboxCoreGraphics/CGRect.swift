@@ -22,17 +22,33 @@ extension CGRect {
     public var topLeft: CGPoint {
         CGPoint(x: minX, y: minY)
     }
+
+    public var topCenter: CGPoint {
+        CGPoint(x: midX, y: minY)
+    }
     
     public var topRight: CGPoint {
         CGPoint(x: maxX, y: minY)
+    }
+
+    public var leftCenter: CGPoint {
+        CGPoint(x: minX, y: midY)
     }
     
     public var bottomLeft: CGPoint {
         CGPoint(x: minX, y: maxY)
     }
+
+    public var bottomCenter: CGPoint {
+        CGPoint(x: midX, y: maxY)
+    }
     
     public var bottomRight: CGPoint {
         CGPoint(x: maxX, y: maxY)
+    }
+
+    public var rightCenter: CGPoint {
+        CGPoint(x: maxX, y: midY)
     }
     
     public init(center: CGPoint, size: CGSize) {
@@ -86,5 +102,5 @@ public func + (left: CGRect, right: CGSize) -> CGRect {
 }
 
 public func - (left: CGRect, right: CGSize) -> CGRect {
-    CGRect(origin: left.origin, size: left.size + right)
+    CGRect(origin: left.origin, size: left.size - right)
 }
