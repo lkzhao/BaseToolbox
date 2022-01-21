@@ -13,6 +13,7 @@ extension UIView {
         set { layer.cornerRadius = newValue }
     }
   
+    @available(iOS 13.0, *)
     open var cornerCurve: CALayerCornerCurve {
         get { layer.cornerCurve }
         set { layer.cornerCurve = newValue }
@@ -65,25 +66,45 @@ extension UIView {
     
     open var borderColor: UIColor? {
         get {
-            objc_getAssociatedObject(self, &AssociateKey.borderColor) as? UIColor
+            if #available(iOS 13.0, *) {
+                return objc_getAssociatedObject(self, &AssociateKey.borderColor) as? UIColor
+            } else {
+                guard let color = layer.borderColor else { return nil }
+                return UIColor(cgColor: color)
+            }
+            
         }
         set {
-            _ = UIView.swizzleTraitCollection
-            objc_setAssociatedObject(self, &AssociateKey.borderColor, newValue, .OBJC_ASSOCIATION_RETAIN)
-            layer.borderColor = borderColor?.resolvedColor(with: traitCollection).cgColor
+            if #available(iOS 13.0, *) {
+                _ = UIView.swizzleTraitCollection
+                objc_setAssociatedObject(self, &AssociateKey.borderColor, newValue, .OBJC_ASSOCIATION_RETAIN)
+                layer.borderColor = borderColor?.resolvedColor(with: traitCollection).cgColor
+            } else {
+                layer.borderColor = newValue?.cgColor
+            }
         }
     }
     
     open var shadowColor: UIColor? {
         get {
-            objc_getAssociatedObject(self, &AssociateKey.shadowColor) as? UIColor
+            if #available(iOS 13.0, *) {
+                return objc_getAssociatedObject(self, &AssociateKey.shadowColor) as? UIColor
+            } else {
+                guard let color = layer.shadowColor else { return nil }
+                return UIColor(cgColor: color)
+            }
         }
         set {
-            _ = UIView.swizzleTraitCollection
-            objc_setAssociatedObject(self, &AssociateKey.shadowColor, newValue, .OBJC_ASSOCIATION_RETAIN)
-            layer.shadowColor = shadowColor?.resolvedColor(with: traitCollection).cgColor
+            if #available(iOS 13.0, *) {
+                _ = UIView.swizzleTraitCollection
+                objc_setAssociatedObject(self, &AssociateKey.shadowColor, newValue, .OBJC_ASSOCIATION_RETAIN)
+                layer.shadowColor = shadowColor?.resolvedColor(with: traitCollection).cgColor
+            } else {
+                layer.shadowColor = newValue?.cgColor
+            }
         }
     }
+    
     
     open var frameWithoutTransform: CGRect {
         get {
@@ -121,6 +142,7 @@ extension UIView {
         method_exchangeImplementations(originalMethod, swizzledMethod)
     }()
     
+    @available(iOS 13.0, *)
     private static let swizzleTraitCollection: Void = {
         guard let originalMethod = class_getInstanceMethod(UIView.self, #selector(traitCollectionDidChange(_:))),
               let swizzledMethod = class_getInstanceMethod(UIView.self, #selector(swizzled_traitCollectionDidChange(_:)))
@@ -128,6 +150,7 @@ extension UIView {
         method_exchangeImplementations(originalMethod, swizzledMethod)
     }()
     
+    @available(iOS 13.0, *)
     @objc func swizzled_traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         swizzled_traitCollectionDidChange(previousTraitCollection)
         if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) != false {

@@ -24,6 +24,7 @@ extension UIColor {
         self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
 
+    @available(iOS 13.0, *)
     public convenience init(dark: UIColor, light: UIColor, elevatedDark: UIColor? = nil, elevatedLight: UIColor? = nil) {
         self.init { trait in
             if trait.userInterfaceLevel == .elevated {
@@ -42,10 +43,12 @@ extension UIColor {
         }
     }
 
+    @available(iOS 13.0, *)
     public var lightMode: UIColor {
         resolvedColor(with: UITraitCollection(userInterfaceStyle: .light))
     }
 
+    @available(iOS 13.0, *)
     public var darkMode: UIColor {
         resolvedColor(with: UITraitCollection(userInterfaceStyle: .dark))
     }
@@ -54,6 +57,7 @@ extension UIColor {
         hexString == UIColor.white.hexString
     }
 
+    @available(iOS 13.0, *)
     public var inverted: UIColor {
         UIColor(dark: lightMode, light: darkMode)
     }
@@ -107,6 +111,7 @@ extension UIColor {
             alpha: alpha1)
     }
 
+    @available(iOS 13.0, *)
     public func dynamicMixWithColor(_ color: UIColor, amount: CGFloat = 0.25) -> UIColor {
         UIColor { trait in
             if trait.userInterfaceStyle == .dark {
