@@ -130,7 +130,7 @@ extension UIView {
     
     @objc func swizzled_traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         swizzled_traitCollectionDidChange(previousTraitCollection)
-        if previousTraitCollection?.hasDifferentColorAppearance(comparedTo: traitCollection) != false {
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
             if let borderColor = borderColor {
                 layer.borderColor = borderColor.resolvedColor(with: traitCollection).cgColor
             }

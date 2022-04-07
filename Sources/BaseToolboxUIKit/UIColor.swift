@@ -8,20 +8,27 @@
 import UIKit
 
 extension UIColor {
-    public convenience init(hexString: String, alpha: CGFloat = 1.0) {
-        let hexString: String = hexString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+    public convenience init(hexString: String) {
+        let r, g, b, a: CGFloat
+
         let scanner = Scanner(string: hexString)
-        scanner.charactersToBeSkipped = CharacterSet(charactersIn: "#")
-        var color: UInt64 = 0
-        scanner.scanHexInt64(&color)
-        let mask = 0x0000_00FF
-        let r = Int(color >> 16) & mask
-        let g = Int(color >> 8) & mask
-        let b = Int(color) & mask
-        let red = CGFloat(r) / 255.0
-        let green = CGFloat(g) / 255.0
-        let blue = CGFloat(b) / 255.0
-        self.init(red: red, green: green, blue: blue, alpha: alpha)
+        _ = scanner.scanCharacters(from: CharacterSet(charactersIn: "#"))
+        var hexNumber: UInt64 = 0
+        scanner.scanHexInt64(&hexNumber)
+        if hexString.length > 7 {
+            r = CGFloat((hexNumber & 0xff000000) >> 24) / 255
+            g = CGFloat((hexNumber & 0x00ff0000) >> 16) / 255
+            b = CGFloat((hexNumber & 0x0000ff00) >> 8) / 255
+            a = CGFloat(hexNumber & 0x000000ff) / 255
+
+            self.init(red: r, green: g, blue: b, alpha: a)
+        } else {
+            r = CGFloat((hexNumber & 0xff0000) >> 16) / 255
+            g = CGFloat((hexNumber & 0x00ff00) >> 8) / 255
+            b = CGFloat(hexNumber & 0x0000ff) / 255
+
+            self.init(red: r, green: g, blue: b, alpha: 1)
+        }
     }
 
     public convenience init(dark: UIColor, light: UIColor, elevatedDark: UIColor? = nil, elevatedLight: UIColor? = nil) {
@@ -78,6 +85,19 @@ extension UIColor {
         let rgb: Int = (Int)(r * 255) << 16 | (Int)(g * 255) << 8 | (Int)(b * 255) << 0
 
         return String(format: "#%06x", rgb)
+    }
+
+    public var hexStringWithAlpha: String {
+        var r: CGFloat = 0
+        var g: CGFloat = 0
+        var b: CGFloat = 0
+        var a: CGFloat = 0
+
+        getRed(&r, green: &g, blue: &b, alpha: &a)
+
+        let rgba: Int = (Int)(r * 255) << 24 | (Int)(g * 255) << 16 | (Int)(b * 255) << 8 | (Int)(a * 255) << 0
+
+        return String(format: "#%08x", rgba)
     }
 
     public func lighter(amount: CGFloat = 0.2) -> UIColor {
