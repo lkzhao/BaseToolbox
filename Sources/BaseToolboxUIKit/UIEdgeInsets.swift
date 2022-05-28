@@ -1,6 +1,10 @@
 import UIKit
 
 extension UIEdgeInsets {
+    public init(_ all: CGFloat) {
+        self.init(top: all, left: all, bottom: all, right: all)
+    }
+    
     // unfortunately. it has to be all of the combinations
     public init(top: CGFloat) {
         self.init(top: top, left: 0, bottom: 0, right: 0)
@@ -56,6 +60,9 @@ extension UIEdgeInsets {
         self.init(top: v, left: 0, bottom: v, right: 0)
     }
     public init(v: CGFloat, h: CGFloat) {
+        self.init(top: v, left: h, bottom: v, right: h)
+    }
+    public init(h: CGFloat, v: CGFloat) {
         self.init(top: v, left: h, bottom: v, right: h)
     }
 }
