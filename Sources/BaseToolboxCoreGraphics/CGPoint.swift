@@ -29,6 +29,10 @@ extension CGPoint {
     public func rounded(_ scale: CGFloat = 1) -> CGPoint {
         CGPoint(x: (x * scale).rounded() / scale, y: (y * scale).rounded() / scale)
     }
+    
+    public init(_ cgSize: CGSize) {
+        self.init(x: cgSize.width, y: cgSize.height)
+    }
 }
 
 extension CGPoint: Hashable {
@@ -115,17 +119,17 @@ public func / (left: CGFloat, right: CGPoint) -> CGPoint {
 // MARK: - CGPoint CGSize operations
 
 public func + (left: CGPoint, right: CGSize) -> CGPoint {
-    CGPoint(x: left.x + right.width, y: left.y + right.height)
+    left + CGPoint(right)
 }
 
 public func - (left: CGPoint, right: CGSize) -> CGPoint {
-    CGPoint(x: left.x - right.width, y: left.y - right.height)
+    left - CGPoint(right)
 }
 
 public func * (left: CGPoint, right: CGSize) -> CGPoint {
-    CGPoint(x: left.x * right.width, y: left.y * right.height)
+    left * CGPoint(right)
 }
 
 public func / (left: CGPoint, right: CGSize) -> CGPoint {
-    CGPoint(x: left.x / right.width, y: left.y / right.height)
+    left / CGPoint(right)
 }
