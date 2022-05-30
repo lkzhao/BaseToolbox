@@ -1,6 +1,11 @@
 import CoreGraphics
 
 extension CGAffineTransform {
+    public var offset: CGPoint { CGPoint(x: tx, y: ty) }
+    public var scaleX: CGFloat { sqrt(a * a + c * c) }
+    public var scaleY: CGFloat { sqrt(b * b + d * d) }
+    public var rotation: CGFloat { atan2(b, a) }
+    
     public func translatedBy(x: CGFloat) -> CGAffineTransform {
         translatedBy(x: x, y: 0)
     }

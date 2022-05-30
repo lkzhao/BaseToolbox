@@ -28,6 +28,10 @@ extension CGSize {
     public func rounded(_ scale: CGFloat = 1) -> CGSize {
         CGSize(width: (width * scale).rounded(.up) / scale, height: (height * scale).rounded(.up) / scale)
     }
+    
+    public init(_ cgPoint: CGPoint) {
+        self.init(width: cgPoint.x, height: cgPoint.y)
+    }
 }
 
 extension CGSize: Hashable {
@@ -109,18 +113,18 @@ public func / (left: CGFloat, right: CGSize) -> CGSize {
 // MARK: - CGSize CGPoint operations
 
 public func + (left: CGSize, right: CGPoint) -> CGSize {
-    CGSize(width: left.width + right.x, height: left.height + right.y)
+    left + CGSize(right)
 }
 
 public func - (left: CGSize, right: CGPoint) -> CGSize {
-    CGSize(width: left.width - right.x, height: left.height - right.y)
+    left - CGSize(right)
 }
 
 public func * (left: CGSize, right: CGPoint) -> CGSize {
-    CGSize(width: left.width * right.x, height: left.height * right.y)
+    left * CGSize(right)
 }
 
 public func / (left: CGSize, right: CGPoint) -> CGSize {
-    CGSize(width: left.width / right.x, height: left.height / right.y)
+    left / CGSize(right)
 }
 
