@@ -8,52 +8,52 @@ extension UIView {
         static var hitTestSlop: Void?
     }
     
-    open var cornerRadius: CGFloat {
+    @objc open var cornerRadius: CGFloat {
         get { layer.cornerRadius }
         set { layer.cornerRadius = newValue }
     }
   
-    open var cornerCurve: CALayerCornerCurve {
+    @objc open var cornerCurve: CALayerCornerCurve {
         get { layer.cornerCurve }
         set { layer.cornerCurve = newValue }
     }
     
-    open var maskedCorners: CACornerMask {
+    @objc open var maskedCorners: CACornerMask {
         get { layer.maskedCorners }
         set { layer.maskedCorners = newValue }
     }
     
-    open var zPosition: CGFloat {
+    @objc open var zPosition: CGFloat {
         get { layer.zPosition }
         set { layer.zPosition = newValue }
     }
     
-    open var borderWidth: CGFloat {
+    @objc open var borderWidth: CGFloat {
         get { layer.borderWidth }
         set { layer.borderWidth = newValue }
     }
     
-    open var shadowOpacity: CGFloat {
+    @objc open var shadowOpacity: CGFloat {
         get { CGFloat(layer.shadowOpacity) }
         set { layer.shadowOpacity = Float(newValue) }
     }
     
-    open var shadowRadius: CGFloat {
+    @objc open var shadowRadius: CGFloat {
         get { layer.shadowRadius }
         set { layer.shadowRadius = newValue }
     }
     
-    open var shadowOffset: CGSize {
+    @objc open var shadowOffset: CGSize {
         get { layer.shadowOffset }
         set { layer.shadowOffset = newValue }
     }
     
-    open var shadowPath: UIBezierPath? {
+    @objc open var shadowPath: UIBezierPath? {
         get { layer.shadowPath.map { UIBezierPath(cgPath: $0) } }
         set { layer.shadowPath = newValue?.cgPath }
     }
     
-    open var hitTestSlop: UIEdgeInsets {
+    @objc open var hitTestSlop: UIEdgeInsets {
         get {
             (objc_getAssociatedObject(self, &AssociateKey.hitTestSlop) as? NSValue)?.uiEdgeInsetsValue ?? .zero
         }
@@ -63,7 +63,7 @@ extension UIView {
         }
     }
     
-    open var borderColor: UIColor? {
+    @objc open var borderColor: UIColor? {
         get {
             objc_getAssociatedObject(self, &AssociateKey.borderColor) as? UIColor
         }
@@ -74,7 +74,7 @@ extension UIView {
         }
     }
     
-    open var shadowColor: UIColor? {
+    @objc open var shadowColor: UIColor? {
         get {
             objc_getAssociatedObject(self, &AssociateKey.shadowColor) as? UIColor
         }
@@ -85,7 +85,7 @@ extension UIView {
         }
     }
     
-    open var frameWithoutTransform: CGRect {
+    @objc open var frameWithoutTransform: CGRect {
         get {
             CGRect(center: center, size: bounds.size)
         }
@@ -98,7 +98,7 @@ extension UIView {
         }
     }
     
-    open var firstResponder: UIView? {
+    @objc open var firstResponder: UIView? {
         if isFirstResponder {
             return self
         }
@@ -110,7 +110,7 @@ extension UIView {
         return nil
     }
     
-    open class var isInAnimationBlock: Bool {
+    @objc open class var isInAnimationBlock: Bool {
         UIView.perform(NSSelectorFromString("_isInAnimationBlock")) != nil
     }
     
