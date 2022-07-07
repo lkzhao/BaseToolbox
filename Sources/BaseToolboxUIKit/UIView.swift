@@ -105,12 +105,7 @@ extension UIView {
         }
     }
     
-<<<<<<< HEAD
-    
-    open var frameWithoutTransform: CGRect {
-=======
     @objc open var frameWithoutTransform: CGRect {
->>>>>>> 5da51da53b39935f9108abcf11ec4a750a6f964a
         get {
             CGRect(center: center, size: bounds.size)
         }

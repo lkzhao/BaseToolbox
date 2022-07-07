@@ -12,7 +12,11 @@ extension UIColor {
         let r, g, b, a: CGFloat
 
         let scanner = Scanner(string: hexString)
-        _ = scanner.scanCharacters(from: CharacterSet(charactersIn: "#"))
+        if #available(iOS 13.0, *) {
+            _ = scanner.scanCharacters(from: CharacterSet(charactersIn: "#"))
+        } else {
+            scanner.charactersToBeSkipped = CharacterSet(charactersIn: "#")
+        }
         var hexNumber: UInt64 = 0
         scanner.scanHexInt64(&hexNumber)
         if hexString.length > 7 {
