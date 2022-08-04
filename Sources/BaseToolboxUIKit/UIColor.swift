@@ -22,11 +22,16 @@ extension UIColor {
             a = CGFloat(hexNumber & 0x000000ff) / 255
 
             self.init(red: r, green: g, blue: b, alpha: a)
-        } else {
+        } else if hexString.length >= 6 {
             r = CGFloat((hexNumber & 0xff0000) >> 16) / 255
             g = CGFloat((hexNumber & 0x00ff00) >> 8) / 255
             b = CGFloat(hexNumber & 0x0000ff) / 255
 
+            self.init(red: r, green: g, blue: b, alpha: 1)
+        } else {
+            r = CGFloat((hexNumber & 0xF00) >> 8) / 15
+            g = CGFloat((hexNumber & 0x0F0) >> 4) / 15
+            b = CGFloat(hexNumber & 0x00F) / 15
             self.init(red: r, green: g, blue: b, alpha: 1)
         }
     }
