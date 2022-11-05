@@ -51,4 +51,133 @@ public extension UIMenu {
             children: builder()
         )
     }
+
+    @available(iOS 15, *)
+    convenience init(
+        localizedTitle: String.LocalizationValue? = nil,
+        localizedSubtitle: String.LocalizationValue? = nil,
+        image: UIImage? = nil,
+        identifier: UIMenu.Identifier? = nil,
+        options: UIMenu.Options = [],
+        @MenuElementsBuilder builder: () -> [UIMenuElement]
+    ) {
+        self.init(
+            title: localizedTitle.map({ String(localized: $0) }) ?? "",
+            subtitle: localizedSubtitle.map({ String(localized: $0) }),
+            image: image,
+            identifier: identifier,
+            options: options,
+            children: builder()
+        )
+    }
+
+    @available(iOS 15, *)
+    convenience init(
+        localizedTitle: String.LocalizationValue? = nil,
+        localizedSubtitle: String.LocalizationValue? = nil,
+        icon: String,
+        identifier: UIMenu.Identifier? = nil,
+        options: UIMenu.Options = [],
+        @MenuElementsBuilder builder: () -> [UIMenuElement]
+    ) {
+        self.init(
+            title: localizedTitle.map({ String(localized: $0) }) ?? "",
+            subtitle: localizedSubtitle.map({ String(localized: $0) }),
+            image: UIImage(systemName: icon),
+            identifier: identifier,
+            options: options,
+            children: builder()
+        )
+    }
+
+    @available(iOS 16.0, *)
+    convenience init(
+        localizedTitle: String.LocalizationValue? = nil,
+        localizedSubtitle: String.LocalizationValue? = nil,
+        image: UIImage? = nil,
+        identifier: UIMenu.Identifier? = nil,
+        options: UIMenu.Options = [],
+        preferredElementSize: ElementSize,
+        @MenuElementsBuilder builder: () -> [UIMenuElement]
+    ) {
+        self.init(
+            title: localizedTitle.map({ String(localized: $0) }) ?? "",
+            subtitle: localizedSubtitle.map({ String(localized: $0) }),
+            image: image,
+            identifier: identifier,
+            options: options,
+            preferredElementSize: preferredElementSize,
+            children: builder()
+        )
+    }
+
+    @available(iOS 16.0, *)
+    convenience init(
+        localizedTitle: String.LocalizationValue? = nil,
+        localizedSubtitle: String.LocalizationValue? = nil,
+        icon: String,
+        identifier: UIMenu.Identifier? = nil,
+        options: UIMenu.Options = [],
+        preferredElementSize: ElementSize,
+        @MenuElementsBuilder builder: () -> [UIMenuElement]
+    ) {
+        self.init(
+            title: localizedTitle.map({ String(localized: $0) }) ?? "",
+            subtitle: localizedSubtitle.map({ String(localized: $0) }),
+            image: UIImage(systemName: icon),
+            identifier: identifier,
+            options: options,
+            preferredElementSize: preferredElementSize,
+            children: builder()
+        )
+    }
+}
+
+
+public extension UIAction {
+    @available(iOS 15, *)
+    convenience init(
+        title: String = "",
+        icon systemIconName: String,
+        attributes: UIMenuElement.Attributes = [],
+        state: UIMenuElement.State = .off,
+        handler: @escaping UIActionHandler
+    )  {
+        self.init(title: title,
+                  image: UIImage(systemName: systemIconName),
+                  attributes: attributes,
+                  state: state,
+                  handler: handler)
+    }
+
+    @available(iOS 15, *)
+    convenience init(
+        localizedTitle: String.LocalizationValue? = nil,
+        image: UIImage? = nil,
+        attributes: UIMenuElement.Attributes = [],
+        state: UIMenuElement.State = .off,
+        handler: @escaping UIActionHandler
+    )  {
+        self.init(title: localizedTitle.map({ String(localized: $0) }) ?? "",
+                  image: image,
+                  attributes: attributes,
+                  state: state,
+                  handler: handler)
+    }
+
+    @available(iOS 15, *)
+    convenience init(
+        localizedTitle: String.LocalizationValue? = nil,
+        icon systemIconName: String,
+        attributes: UIMenuElement.Attributes = [],
+        state: UIMenuElement.State = .off,
+        handler: @escaping UIActionHandler
+    )  {
+        self.init(title: localizedTitle.map({ String(localized: $0) }) ?? "",
+                  image: UIImage(systemName: systemIconName),
+                  attributes: attributes,
+                  state: state,
+                  handler: handler)
+    }
+
 }
