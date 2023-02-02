@@ -175,7 +175,7 @@ extension UIView {
 }
 
 extension UIView {
-    open var parentViewController: UIViewController? {
+    @objc open var parentViewController: UIViewController? {
         var responder: UIResponder? = self
         while responder is UIView {
             responder = responder!.next
@@ -183,19 +183,19 @@ extension UIView {
         return responder as? UIViewController
     }
     
-    open var presentedViewController: UIViewController? {
+    @objc open var presentedViewController: UIViewController? {
         parentViewController?.presentedViewController
     }
     
-    open var presentingViewController: UIViewController? {
+    @objc open var presentingViewController: UIViewController? {
         parentViewController?.presentingViewController
     }
     
-    open func present(_ viewController: UIViewController, completion: (() -> Void)? = nil) {
+    @objc open func present(_ viewController: UIViewController, completion: (() -> Void)? = nil) {
         parentViewController?.present(viewController, animated: true, completion: completion)
     }
     
-    open func push(_ viewController: UIViewController) {
+    @objc open func push(_ viewController: UIViewController) {
         parentViewController?.navigationController?.pushViewController(viewController, animated: true)
     }
     

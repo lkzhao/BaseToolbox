@@ -25,8 +25,12 @@ extension CGSize {
         self * min(1, min(fit.width / width, fit.height / height))
     }
     
-    public func rounded(_ scale: CGFloat = 1) -> CGSize {
-        CGSize(width: (width * scale).rounded(.up) / scale, height: (height * scale).rounded(.up) / scale)
+    public func rounded(scale: CGFloat, rule: FloatingPointRoundingRule) -> CGSize {
+        (self * scale).rounded(rule) / scale
+    }
+
+    public func rounded(_ rule: FloatingPointRoundingRule) -> Self {
+        CGSize(width: width.rounded(rule), height: height.rounded(rule))
     }
     
     public init(_ cgPoint: CGPoint) {

@@ -54,9 +54,13 @@ extension CGRect {
     public init(center: CGPoint, size: CGSize) {
         self.init(origin: center - size / 2, size: size)
     }
-    
-    public func rounded(_ scale: CGFloat = 1) -> CGRect {
-        CGRect(origin: origin.rounded(scale), size: size.rounded(scale))
+
+    public func rounded(scale: CGFloat, rule: FloatingPointRoundingRule) -> Self {
+        (self * scale).rounded(rule) / scale
+    }
+
+    public func rounded(_ rule: FloatingPointRoundingRule) -> Self {
+        CGRect(origin: origin.rounded(rule), size: size.rounded(rule))
     }
 }
 
