@@ -12,7 +12,11 @@ extension UIColor {
         let r, g, b, a: CGFloat
 
         let scanner = Scanner(string: hexString)
-        _ = scanner.scanCharacters(from: CharacterSet(charactersIn: "#"))
+        if #available(iOS 13.0, *) {
+            _ = scanner.scanCharacters(from: CharacterSet(charactersIn: "#"))
+        } else {
+            scanner.charactersToBeSkipped = CharacterSet(charactersIn: "#")
+        }
         var hexNumber: UInt64 = 0
         scanner.scanHexInt64(&hexNumber)
         if hexString.length > 7 {
@@ -36,6 +40,7 @@ extension UIColor {
         }
     }
 
+    @available(iOS 13.0, *)
     public convenience init(dark: UIColor, light: UIColor, elevatedDark: UIColor? = nil, elevatedLight: UIColor? = nil) {
         self.init { trait in
             if trait.userInterfaceLevel == .elevated {
@@ -54,10 +59,12 @@ extension UIColor {
         }
     }
 
+    @available(iOS 13.0, *)
     public var lightMode: UIColor {
         resolvedColor(with: UITraitCollection(userInterfaceStyle: .light))
     }
 
+    @available(iOS 13.0, *)
     public var darkMode: UIColor {
         resolvedColor(with: UITraitCollection(userInterfaceStyle: .dark))
     }
@@ -66,6 +73,7 @@ extension UIColor {
         hexString == UIColor.white.hexString
     }
 
+    @available(iOS 13.0, *)
     public var inverted: UIColor {
         UIColor(dark: lightMode, light: darkMode)
     }
@@ -136,6 +144,7 @@ extension UIColor {
             alpha: alpha1)
     }
 
+    @available(iOS 13.0, *)
     public func dynamicMixWithColor(_ color: UIColor, amount: CGFloat = 0.25) -> UIColor {
         UIColor { trait in
             if trait.userInterfaceStyle == .dark {
