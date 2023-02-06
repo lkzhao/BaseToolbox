@@ -36,6 +36,69 @@ extension CGSize {
     public init(_ cgPoint: CGPoint) {
         self.init(width: cgPoint.x, height: cgPoint.y)
     }
+    
+    // MARK: - CGSize operations
+
+    public static func + (left: CGSize, right: CGSize) -> CGSize {
+        CGSize(width: left.width + right.width, height: left.height + right.height)
+    }
+
+    public static func - (left: CGSize, right: CGSize) -> CGSize {
+        CGSize(width: left.width - right.width, height: left.height - right.height)
+    }
+
+    public static func * (left: CGSize, right: CGSize) -> CGSize {
+        CGSize(width: left.width * right.width, height: left.height * right.height)
+    }
+
+    public static func / (left: CGSize, right: CGSize) -> CGSize {
+        CGSize(width: left.width / right.width, height: left.height / right.height)
+    }
+
+    public static prefix func - (size: CGSize) -> CGSize {
+        CGSize.zero - size
+    }
+
+    public static func += (left: inout CGSize, right: CGSize) {
+        left.width += right.width
+        left.height += right.height
+    }
+
+    // MARK: - CGSize CGFloat operations
+
+    public static func + (left: CGSize, right: CGFloat) -> CGSize {
+        CGSize(width: left.width + right, height: left.height + right)
+    }
+
+    public static func - (left: CGSize, right: CGFloat) -> CGSize {
+        CGSize(width: left.width - right, height: left.height - right)
+    }
+
+    public static func * (left: CGSize, right: CGFloat) -> CGSize {
+        CGSize(width: left.width * right, height: left.height * right)
+    }
+
+    public static func / (left: CGSize, right: CGFloat) -> CGSize {
+        CGSize(width: left.width / right, height: left.height / right)
+    }
+
+    // MARK: - CGSize CGPoint operations
+
+    public static func + (left: CGSize, right: CGPoint) -> CGSize {
+        left + CGSize(right)
+    }
+
+    public static func - (left: CGSize, right: CGPoint) -> CGSize {
+        left - CGSize(right)
+    }
+
+    public static func * (left: CGSize, right: CGPoint) -> CGSize {
+        left * CGSize(right)
+    }
+
+    public static func / (left: CGSize, right: CGPoint) -> CGSize {
+        left / CGSize(right)
+    }
 }
 
 extension CGSize: Hashable {
@@ -52,83 +115,3 @@ public func abs(_ left: CGSize) -> CGSize {
 public func min(_ left: CGSize, _ right: CGSize) -> CGSize {
     CGSize(width: min(left.width, right.width), height: min(left.height, right.height))
 }
-
-// MARK: - CGSize operations
-
-public func + (left: CGSize, right: CGSize) -> CGSize {
-    CGSize(width: left.width + right.width, height: left.height + right.height)
-}
-
-public func - (left: CGSize, right: CGSize) -> CGSize {
-    CGSize(width: left.width - right.width, height: left.height - right.height)
-}
-
-public func * (left: CGSize, right: CGSize) -> CGSize {
-    CGSize(width: left.width * right.width, height: left.height * right.height)
-}
-
-public func / (left: CGSize, right: CGSize) -> CGSize {
-    CGSize(width: left.width / right.width, height: left.height / right.height)
-}
-
-public prefix func - (size: CGSize) -> CGSize {
-    CGSize.zero - size
-}
-
-public func += (left: inout CGSize, right: CGSize) {
-    left.width += right.width
-    left.height += right.height
-}
-
-// MARK: - CGSize CGFloat operations
-
-public func + (left: CGSize, right: CGFloat) -> CGSize {
-    CGSize(width: left.width + right, height: left.height + right)
-}
-
-public func - (left: CGSize, right: CGFloat) -> CGSize {
-    CGSize(width: left.width - right, height: left.height - right)
-}
-
-public func * (left: CGSize, right: CGFloat) -> CGSize {
-    CGSize(width: left.width * right, height: left.height * right)
-}
-
-public func / (left: CGSize, right: CGFloat) -> CGSize {
-    CGSize(width: left.width / right, height: left.height / right)
-}
-
-public func + (left: CGFloat, right: CGSize) -> CGSize {
-    CGSize(width: left + right.height, height: left + right.height)
-}
-
-public func - (left: CGFloat, right: CGSize) -> CGSize {
-    CGSize(width: left - right.height, height: left - right.height)
-}
-
-public func * (left: CGFloat, right: CGSize) -> CGSize {
-    CGSize(width: left * right.height, height: left * right.height)
-}
-
-public func / (left: CGFloat, right: CGSize) -> CGSize {
-    CGSize(width: left / right.height, height: left / right.height)
-}
-
-// MARK: - CGSize CGPoint operations
-
-public func + (left: CGSize, right: CGPoint) -> CGSize {
-    left + CGSize(right)
-}
-
-public func - (left: CGSize, right: CGPoint) -> CGSize {
-    left - CGSize(right)
-}
-
-public func * (left: CGSize, right: CGPoint) -> CGSize {
-    left * CGSize(right)
-}
-
-public func / (left: CGSize, right: CGPoint) -> CGSize {
-    left / CGSize(right)
-}
-

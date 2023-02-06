@@ -62,6 +62,44 @@ extension CGRect {
     public func rounded(_ rule: FloatingPointRoundingRule) -> Self {
         CGRect(origin: origin.rounded(rule), size: size.rounded(rule))
     }
+    
+    // MARK: - CGRect CGFloat operations
+
+    public static func + (left: CGRect, right: CGFloat) -> CGRect {
+        CGRect(origin: left.origin + right, size: left.size + right)
+    }
+
+    public static func - (left: CGRect, right: CGFloat) -> CGRect {
+        CGRect(origin: left.origin - right, size: left.size - right)
+    }
+
+    public static func * (left: CGRect, right: CGFloat) -> CGRect {
+        CGRect(origin: left.origin * right, size: left.size * right)
+    }
+
+    public static func / (left: CGRect, right: CGFloat) -> CGRect {
+        CGRect(origin: left.origin / right, size: left.size / right)
+    }
+
+    // MARK: - CGRect CGPoint operations
+
+    public static func + (left: CGRect, right: CGPoint) -> CGRect {
+        CGRect(origin: left.origin + right, size: left.size)
+    }
+
+    public static func - (left: CGRect, right: CGPoint) -> CGRect {
+        CGRect(origin: left.origin - right, size: left.size)
+    }
+
+    // MARK: - CGRect CGSize operations
+
+    public static func + (left: CGRect, right: CGSize) -> CGRect {
+        CGRect(origin: left.origin, size: left.size + right)
+    }
+
+    public static func - (left: CGRect, right: CGSize) -> CGRect {
+        CGRect(origin: left.origin, size: left.size - right)
+    }
 }
 
 extension CGRect: Hashable {
@@ -69,42 +107,4 @@ extension CGRect: Hashable {
         hasher.combine(origin)
         hasher.combine(size)
     }
-}
-
-// MARK: - CGRect CGFloat operations
-
-public func + (left: CGRect, right: CGFloat) -> CGRect {
-    CGRect(origin: left.origin + right, size: left.size + right)
-}
-
-public func - (left: CGRect, right: CGFloat) -> CGRect {
-    CGRect(origin: left.origin - right, size: left.size - right)
-}
-
-public func * (left: CGRect, right: CGFloat) -> CGRect {
-    CGRect(origin: left.origin * right, size: left.size * right)
-}
-
-public func / (left: CGRect, right: CGFloat) -> CGRect {
-    CGRect(origin: left.origin / right, size: left.size / right)
-}
-
-// MARK: - CGRect CGPoint operations
-
-public func + (left: CGRect, right: CGPoint) -> CGRect {
-    CGRect(origin: left.origin + right, size: left.size)
-}
-
-public func - (left: CGRect, right: CGPoint) -> CGRect {
-    CGRect(origin: left.origin - right, size: left.size)
-}
-
-// MARK: - CGRect CGSize operations
-
-public func + (left: CGRect, right: CGSize) -> CGRect {
-    CGRect(origin: left.origin, size: left.size + right)
-}
-
-public func - (left: CGRect, right: CGSize) -> CGRect {
-    CGRect(origin: left.origin, size: left.size - right)
 }

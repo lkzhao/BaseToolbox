@@ -37,6 +37,74 @@ extension CGPoint {
     public init(_ cgSize: CGSize) {
         self.init(x: cgSize.width, y: cgSize.height)
     }
+    
+    // MARK: - CGPoint operations
+
+    public static func + (left: CGPoint, right: CGPoint) -> CGPoint {
+        CGPoint(x: left.x + right.x, y: left.y + right.y)
+    }
+
+    public static func - (left: CGPoint, right: CGPoint) -> CGPoint {
+        CGPoint(x: left.x - right.x, y: left.y - right.y)
+    }
+
+    public static func * (left: CGPoint, right: CGPoint) -> CGPoint {
+        CGPoint(x: left.x * right.x, y: left.y * right.y)
+    }
+
+    public static func / (left: CGPoint, right: CGPoint) -> CGPoint {
+        CGPoint(x: left.x / right.x, y: left.y / right.y)
+    }
+
+    public static prefix func - (point: CGPoint) -> CGPoint {
+        CGPoint.zero - point
+    }
+
+    public static func += (left: inout CGPoint, right: CGPoint) {
+        left.x += right.x
+        left.y += right.y
+    }
+
+    public static func -= (left: inout CGPoint, right: CGPoint) {
+        left.x -= right.x
+        left.y -= right.y
+    }
+    
+    // MARK: - CGPoint CGFloat operations
+
+    public static func + (left: CGPoint, right: CGFloat) -> CGPoint {
+        CGPoint(x: left.x + right, y: left.y + right)
+    }
+
+    public static func - (left: CGPoint, right: CGFloat) -> CGPoint {
+        CGPoint(x: left.x - right, y: left.y - right)
+    }
+
+    public static func * (left: CGPoint, right: CGFloat) -> CGPoint {
+        CGPoint(x: left.x * right, y: left.y * right)
+    }
+
+    public static func / (left: CGPoint, right: CGFloat) -> CGPoint {
+        CGPoint(x: left.x / right, y: left.y / right)
+    }
+    
+    // MARK: - CGPoint CGSize operations
+
+    public static func + (left: CGPoint, right: CGSize) -> CGPoint {
+        left + CGPoint(right)
+    }
+
+    public static func - (left: CGPoint, right: CGSize) -> CGPoint {
+        left - CGPoint(right)
+    }
+
+    public static func * (left: CGPoint, right: CGSize) -> CGPoint {
+        left * CGPoint(right)
+    }
+
+    public static func / (left: CGPoint, right: CGSize) -> CGPoint {
+        left / CGPoint(right)
+    }
 }
 
 extension CGPoint: Hashable {
@@ -52,88 +120,4 @@ public func abs(_ left: CGPoint) -> CGPoint {
 
 public func min(_ left: CGPoint, _ right: CGPoint) -> CGPoint {
     CGPoint(x: min(left.x, right.x), y: min(left.y, right.y))
-}
-
-// MARK: - CGPoint operations
-
-public func + (left: CGPoint, right: CGPoint) -> CGPoint {
-    CGPoint(x: left.x + right.x, y: left.y + right.y)
-}
-
-public func - (left: CGPoint, right: CGPoint) -> CGPoint {
-    CGPoint(x: left.x - right.x, y: left.y - right.y)
-}
-
-public func * (left: CGPoint, right: CGPoint) -> CGPoint {
-    CGPoint(x: left.x * right.x, y: left.y * right.y)
-}
-
-public func / (left: CGPoint, right: CGPoint) -> CGPoint {
-    CGPoint(x: left.x / right.x, y: left.y / right.y)
-}
-
-public prefix func - (point: CGPoint) -> CGPoint {
-    CGPoint.zero - point
-}
-
-public func += (left: inout CGPoint, right: CGPoint) {
-    left.x += right.x
-    left.y += right.y
-}
-
-public func -= (left: inout CGPoint, right: CGPoint) {
-    left.x -= right.x
-    left.y -= right.y
-}
-
-// MARK: - CGPoint CGFloat operations
-
-public func + (left: CGPoint, right: CGFloat) -> CGPoint {
-    CGPoint(x: left.x + right, y: left.y + right)
-}
-
-public func - (left: CGPoint, right: CGFloat) -> CGPoint {
-    CGPoint(x: left.x - right, y: left.y - right)
-}
-
-public func * (left: CGPoint, right: CGFloat) -> CGPoint {
-    CGPoint(x: left.x * right, y: left.y * right)
-}
-
-public func / (left: CGPoint, right: CGFloat) -> CGPoint {
-    CGPoint(x: left.x / right, y: left.y / right)
-}
-
-public func + (left: CGFloat, right: CGPoint) -> CGPoint {
-    CGPoint(x: left + right.x, y: left + right.y)
-}
-
-public func - (left: CGFloat, right: CGPoint) -> CGPoint {
-    CGPoint(x: left - right.x, y: left - right.y)
-}
-
-public func * (left: CGFloat, right: CGPoint) -> CGPoint {
-    CGPoint(x: left * right.x, y: left * right.y)
-}
-
-public func / (left: CGFloat, right: CGPoint) -> CGPoint {
-    CGPoint(x: left / right.x, y: left / right.y)
-}
-
-// MARK: - CGPoint CGSize operations
-
-public func + (left: CGPoint, right: CGSize) -> CGPoint {
-    left + CGPoint(right)
-}
-
-public func - (left: CGPoint, right: CGSize) -> CGPoint {
-    left - CGPoint(right)
-}
-
-public func * (left: CGPoint, right: CGSize) -> CGPoint {
-    left * CGPoint(right)
-}
-
-public func / (left: CGPoint, right: CGSize) -> CGPoint {
-    left / CGPoint(right)
 }
