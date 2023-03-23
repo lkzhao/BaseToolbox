@@ -35,18 +35,18 @@ extension CGFloat {
     // MARK: - CGFloat CGSize operations
     
     public static func + (left: CGFloat, right: CGSize) -> CGSize {
-        CGSize(width: left + right.height, height: left + right.height)
+        CGSize(width: left + right.width, height: left + right.height)
     }
 
     public static func - (left: CGFloat, right: CGSize) -> CGSize {
-        CGSize(width: left - right.height, height: left - right.height)
+        CGSize(width: left - right.width, height: left - right.height)
     }
 
     public static func * (left: CGFloat, right: CGSize) -> CGSize {
-        CGSize(width: left * right.height, height: left * right.height)
+        CGSize(width: left * right.width, height: left * right.height)
     }
 
     public static func / (left: CGFloat, right: CGSize) -> CGSize {
-        CGSize(width: left / right.height, height: left / right.height)
+        CGSize(width: left / right.width, height: left / right.height)
     }
 }
