@@ -90,7 +90,7 @@ public extension UIMenu {
         )
     }
 
-    @available(iOS 16.0, *)
+    @available(iOS 16.0, tvOS 16.0, *)
     convenience init(
         localizedTitle: String.LocalizationValue? = nil,
         localizedSubtitle: String.LocalizationValue? = nil,
@@ -111,7 +111,7 @@ public extension UIMenu {
         )
     }
 
-    @available(iOS 16.0, *)
+    @available(iOS 16.0, tvOS 16.0, *)
     convenience init(
         localizedTitle: String.LocalizationValue? = nil,
         localizedSubtitle: String.LocalizationValue? = nil,

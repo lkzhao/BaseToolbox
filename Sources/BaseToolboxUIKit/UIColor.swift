@@ -38,6 +38,13 @@ extension UIColor {
 
     public convenience init(dark: UIColor, light: UIColor, elevatedDark: UIColor? = nil, elevatedLight: UIColor? = nil) {
         self.init { trait in
+#if os(tvOS)
+            if trait.userInterfaceStyle == .dark {
+                return dark
+            } else {
+                return light
+            }
+            #else
             if trait.userInterfaceLevel == .elevated {
                 if trait.userInterfaceStyle == .dark {
                     return elevatedDark ?? dark
@@ -51,6 +58,7 @@ extension UIColor {
                     return light
                 }
             }
+            #endif
         }
     }
 

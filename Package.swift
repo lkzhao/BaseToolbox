@@ -5,7 +5,10 @@ import PackageDescription
 
 let package = Package(
   name: "BaseToolbox",
-  platforms: [.iOS(.v13)],
+  platforms: [
+    .iOS("13.0"),
+    .tvOS("15.0")
+  ],
   products: [
     .library(
       name: "BaseToolbox",
