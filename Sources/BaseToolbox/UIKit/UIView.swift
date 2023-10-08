@@ -1,5 +1,4 @@
 import UIKit
-import BaseToolboxCoreGraphics
 
 extension UIView {
     private struct AssociateKey {
@@ -146,35 +145,6 @@ extension UIView {
 }
 
 extension UIView {
-    public func superview<T: UIView>(matchingType _: T.Type) -> T? {
-        var current: UIView? = self
-        while let next = current?.superview {
-            if let next = next as? T {
-                return next
-            }
-            current = next
-        }
-        return nil
-    }
-    
-    public func findSubview<ViewType: UIView>(checker: ((ViewType) -> Bool)? = nil) -> ViewType? {
-        for subview in [self] + flattendSubviews.reversed() {
-            if let subview = subview as? ViewType, checker?(subview) != false {
-                return subview
-            }
-        }
-        return nil
-    }
-    
-    public func contains(view: UIView) -> Bool {
-        if view == self {
-            return true
-        }
-        return subviews.contains(where: { $0.contains(view: view) })
-    }
-}
-
-extension UIView {
     @objc open var parentViewController: UIViewController? {
         var responder: UIResponder? = self
         while responder is UIView {
@@ -190,33 +160,6 @@ extension UIView {
     @objc open var presentingViewController: UIViewController? {
         parentViewController?.presentingViewController
     }
-    
-    @objc open func present(_ viewController: UIViewController, completion: (() -> Void)? = nil) {
-        parentViewController?.present(viewController, animated: true, completion: completion)
-    }
-    
-    @objc open func push(_ viewController: UIViewController) {
-        parentViewController?.navigationController?.pushViewController(viewController, animated: true)
-    }
-    
-    @objc open func dismiss(completion: (() -> Void)? = nil) {
-        guard let viewController = parentViewController else {
-            return
-        }
-        if let navVC = viewController.navigationController, navVC.viewControllers.count > 1 {
-            navVC.popViewController(animated: true)
-            completion?()
-        } else {
-            viewController.dismiss(animated: true, completion: completion)
-        }
-    }
-    
-    @objc open func dismissModal(completion: (() -> Void)? = nil) {
-        guard let viewController = parentViewController else {
-            return
-        }
-        viewController.dismiss(animated: true, completion: completion)
-    }
 }
 
 extension UIView {
@@ -227,23 +170,152 @@ extension UIView {
     ///   - afterScreenUpdates: A Boolean value that indicates whether the snapshot should be rendered after recent changes have been incorporated. Specify the value false if you want to render a snapshot in the view hierarchy’s current state, which might not include recent changes. Defaults to `true`.
     ///
     /// - Returns: The `UIImage` snapshot.
-    
+
     public func snapshot(of rect: CGRect? = nil, afterScreenUpdates: Bool = true) -> UIImage {
         UIGraphicsImageRenderer(bounds: rect ?? bounds).image { _ in
             drawHierarchy(in: bounds, afterScreenUpdates: afterScreenUpdates)
         }
     }
-    
+}
+
+extension UIView {
     public var flattendSubviews: [UIView] {
         subviews + subviews.flatMap { $0.flattendSubviews }
     }
-    
+
+    public func superviewMatching<T: UIView>(type: T.Type) -> T? {
+        superviewPassing {
+            $0 is T
+        } as? T
+    }
+
+    public func subviewMatching<T: UIView>(type: T.Type) -> T? {
+        subviewPassing {
+            $0 is T
+        } as? T
+    }
+
+    public func viewMatching<T: UIView>(type: T.Type) -> T? {
+        viewPassing {
+            $0 is T
+        } as? T
+    }
+
+    public func viewPassing(test: (UIView) -> Bool) -> UIView? {
+        if test(self) {
+            return self
+        } else if let superview = superviewPassing(test: test) {
+            return superview
+        } else if let subview = subviewPassing(test: test) {
+            return subview
+        }
+        return nil
+    }
+
+    public func superviewPassing(test: (UIView) -> Bool) -> UIView? {
+        var superview = superview
+        while let current = superview {
+            if test(current) {
+                return current
+            }
+            superview = current.superview
+        }
+        return nil
+    }
+
+    public func subviewPassing(test: (UIView) -> Bool) -> UIView? {
+        for subview in subviews {
+            if test(subview) {
+                return subview
+            }
+            if let result = subview.subviewPassing(test: test) {
+                return result
+            }
+        }
+        return nil
+    }
+}
+
+extension UIView {
+    @objc open func present(_ viewController: UIViewController, completion: (() -> Void)? = nil) {
+        if let customPresentationMethod = BaseToolbox.customPresentationMethod {
+            customPresentationMethod(self, viewController, completion)
+        } else {
+            parentViewController?.present(viewController, animated: true, completion: completion)
+        }
+    }
+
+    @objc open func push(_ viewController: UIViewController) {
+        if let customPushMethod = BaseToolbox.customPushMethod {
+            customPushMethod(self, viewController)
+        } else {
+            parentViewController?.navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
+
+    @objc open func dismiss(completion: (() -> Void)? = nil) {
+        if let customDismissMethod = BaseToolbox.customDismissMethod {
+            customDismissMethod(self, completion)
+        } else {
+            guard let viewController = parentViewController else {
+                return
+            }
+            if let navVC = viewController.navigationController, navVC.viewControllers.count > 1 {
+                navVC.popViewController(animated: true)
+                completion?()
+            } else {
+                viewController.dismiss(animated: true, completion: completion)
+            }
+        }
+    }
+
+    @objc open func dismissModal(completion: (() -> Void)? = nil) {
+        guard let viewController = parentViewController else {
+            return
+        }
+        viewController.dismiss(animated: true, completion: completion)
+    }
+}
+
+extension UIView {
+    @available(*, deprecated, renamed: "superviewMatching(type:)")
+    public func superview<T: UIView>(matchingType _: T.Type) -> T? {
+        var current: UIView? = self
+        while let next = current?.superview {
+            if let next = next as? T {
+                return next
+            }
+            current = next
+        }
+        return nil
+    }
+
+    @available(*, deprecated, message: "Please use `subviewPassing(test:)`, `viewPassing(test:)`, `subviewMatching(type:)`, or `viewMatching(type:)` instead")
+    public func findSubview<ViewType: UIView>(checker: ((ViewType) -> Bool)? = nil) -> ViewType? {
+        for subview in [self] + flattendSubviews.reversed() {
+            if let subview = subview as? ViewType, checker?(subview) != false {
+                return subview
+            }
+        }
+        return nil
+    }
+
+    @available(*, deprecated, message: "Please use `subviewPassing(test:)` or `viewPassing(test:)` instead")
+    public func contains(view: UIView) -> Bool {
+        if view == self {
+            return true
+        }
+        return subviews.contains(where: { $0.contains(view: view) })
+    }
+
+    @available(*, deprecated, renamed: "superviewMatching(type:)")
     public func closestViewMatchingType<ViewType: UIView>(_: ViewType.Type) -> ViewType? {
         closestViewPassingTest {
             $0 is ViewType
         } as? ViewType
     }
-    
+
+    @available(*, deprecated, renamed: "superviewPassing(test:)")
     public func closestViewPassingTest(_ test: (UIView) -> Bool) -> UIView? {
         var current: UIView? = self.superview
         while current != nil {

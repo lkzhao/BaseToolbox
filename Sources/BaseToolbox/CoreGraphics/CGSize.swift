@@ -1,4 +1,4 @@
-import CoreGraphics
+import UIKit
 
 extension CGSize {
     public var transposed: CGSize {
@@ -105,6 +105,12 @@ extension CGSize: Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(width)
         hasher.combine(height)
+    }
+}
+
+extension CGSize {
+    public func inset(by insets: UIEdgeInsets) -> CGSize {
+        CGSize(width: width - insets.left - insets.right, height: height - insets.top - insets.bottom)
     }
 }
 
