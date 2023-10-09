@@ -1,153 +1,153 @@
 import UIKit
 
 extension CGSize {
-    public var transposed: CGSize {
+    @inlinable public var transposed: CGSize {
         CGSize(width: height, height: width)
     }
     
-    public func transform(_ trans: CGAffineTransform) -> CGSize {
+    @inlinable public func transform(_ trans: CGAffineTransform) -> CGSize {
         applying(trans)
     }
     
-    public func size(fill: CGSize) -> CGSize {
+    @inlinable public func size(fill: CGSize) -> CGSize {
         self * max(fill.width / width, fill.height / height)
     }
     
-    public func size(fillIfSmaller fill: CGSize) -> CGSize {
+    @inlinable public func size(fillIfSmaller fill: CGSize) -> CGSize {
         self * max(1, max(fill.width / width, fill.height / height))
     }
     
-    public func size(fit: CGSize) -> CGSize {
+    @inlinable public func size(fit: CGSize) -> CGSize {
         self * min(fit.width / width, fit.height / height)
     }
     
-    public func size(fitIfBigger fit: CGSize) -> CGSize {
+    @inlinable public func size(fitIfBigger fit: CGSize) -> CGSize {
         self * min(1, min(fit.width / width, fit.height / height))
     }
     
-    public func rounded(scale: CGFloat, rule: FloatingPointRoundingRule) -> CGSize {
+    @inlinable public func rounded(scale: CGFloat, rule: FloatingPointRoundingRule) -> CGSize {
         (self * scale).rounded(rule) / scale
     }
 
-    public func rounded(_ rule: FloatingPointRoundingRule) -> Self {
+    @inlinable public func rounded(_ rule: FloatingPointRoundingRule) -> Self {
         CGSize(width: width.rounded(rule), height: height.rounded(rule))
     }
     
-    public init(_ cgPoint: CGPoint) {
+    @inlinable public init(_ cgPoint: CGPoint) {
         self.init(width: cgPoint.x, height: cgPoint.y)
     }
     
     // MARK: - CGSize operations
 
-    public static func + (left: CGSize, right: CGSize) -> CGSize {
+    @inlinable public static func + (left: CGSize, right: CGSize) -> CGSize {
         CGSize(width: left.width + right.width, height: left.height + right.height)
     }
 
-    public static func - (left: CGSize, right: CGSize) -> CGSize {
+    @inlinable public static func - (left: CGSize, right: CGSize) -> CGSize {
         CGSize(width: left.width - right.width, height: left.height - right.height)
     }
 
-    public static func * (left: CGSize, right: CGSize) -> CGSize {
+    @inlinable public static func * (left: CGSize, right: CGSize) -> CGSize {
         CGSize(width: left.width * right.width, height: left.height * right.height)
     }
 
-    public static func / (left: CGSize, right: CGSize) -> CGSize {
+    @inlinable public static func / (left: CGSize, right: CGSize) -> CGSize {
         CGSize(width: left.width / right.width, height: left.height / right.height)
     }
 
-    public static prefix func - (size: CGSize) -> CGSize {
+    @inlinable public static prefix func - (size: CGSize) -> CGSize {
         CGSize.zero - size
     }
 
-    public static func += (left: inout CGSize, right: CGSize) {
+    @inlinable public static func += (left: inout CGSize, right: CGSize) {
         left.width += right.width
         left.height += right.height
     }
 
-    public static func -= (left: inout CGSize, right: CGSize) {
+    @inlinable public static func -= (left: inout CGSize, right: CGSize) {
         left.width -= right.width
         left.height -= right.height
     }
 
-    public static func *= (left: inout CGSize, right: CGSize) {
+    @inlinable public static func *= (left: inout CGSize, right: CGSize) {
         left.width *= right.width
         left.height *= right.height
     }
 
-    public static func /= (left: inout CGSize, right: CGSize) {
+    @inlinable public static func /= (left: inout CGSize, right: CGSize) {
         left.width /= right.width
         left.height /= right.height
     }
 
     // MARK: - CGSize CGFloat operations
 
-    public static func + (left: CGSize, right: CGFloat) -> CGSize {
+    @inlinable public static func + (left: CGSize, right: CGFloat) -> CGSize {
         CGSize(width: left.width + right, height: left.height + right)
     }
 
-    public static func - (left: CGSize, right: CGFloat) -> CGSize {
+    @inlinable public static func - (left: CGSize, right: CGFloat) -> CGSize {
         CGSize(width: left.width - right, height: left.height - right)
     }
 
-    public static func * (left: CGSize, right: CGFloat) -> CGSize {
+    @inlinable public static func * (left: CGSize, right: CGFloat) -> CGSize {
         CGSize(width: left.width * right, height: left.height * right)
     }
 
-    public static func / (left: CGSize, right: CGFloat) -> CGSize {
+    @inlinable public static func / (left: CGSize, right: CGFloat) -> CGSize {
         CGSize(width: left.width / right, height: left.height / right)
     }
 
-    public static func += (left: inout CGSize, right: CGFloat) {
+    @inlinable public static func += (left: inout CGSize, right: CGFloat) {
         left.width += right
         left.height += right
     }
 
-    public static func -= (left: inout CGSize, right: CGFloat) {
+    @inlinable public static func -= (left: inout CGSize, right: CGFloat) {
         left.width -= right
         left.height -= right
     }
 
-    public static func *= (left: inout CGSize, right: CGFloat) {
+    @inlinable public static func *= (left: inout CGSize, right: CGFloat) {
         left.width *= right
         left.height *= right
     }
 
-    public static func /= (left: inout CGSize, right: CGFloat) {
+    @inlinable public static func /= (left: inout CGSize, right: CGFloat) {
         left.width /= right
         left.height /= right
     }
 
     // MARK: - CGSize CGPoint operations
 
-    public static func + (left: CGSize, right: CGPoint) -> CGSize {
+    @inlinable public static func + (left: CGSize, right: CGPoint) -> CGSize {
         left + CGSize(right)
     }
 
-    public static func - (left: CGSize, right: CGPoint) -> CGSize {
+    @inlinable public static func - (left: CGSize, right: CGPoint) -> CGSize {
         left - CGSize(right)
     }
 
-    public static func * (left: CGSize, right: CGPoint) -> CGSize {
+    @inlinable public static func * (left: CGSize, right: CGPoint) -> CGSize {
         left * CGSize(right)
     }
 
-    public static func / (left: CGSize, right: CGPoint) -> CGSize {
+    @inlinable public static func / (left: CGSize, right: CGPoint) -> CGSize {
         left / CGSize(right)
     }
 
-    public static func += (left: inout CGSize, right: CGPoint) {
+    @inlinable public static func += (left: inout CGSize, right: CGPoint) {
         left += CGSize(right)
     }
 
-    public static func -= (left: inout CGSize, right: CGPoint) {
+    @inlinable public static func -= (left: inout CGSize, right: CGPoint) {
         left -= CGSize(right)
     }
 
-    public static func *= (left: inout CGSize, right: CGPoint) {
+    @inlinable public static func *= (left: inout CGSize, right: CGPoint) {
         left *= CGSize(right)
     }
 
-    public static func /= (left: inout CGSize, right: CGPoint) {
+    @inlinable public static func /= (left: inout CGSize, right: CGPoint) {
         left /= CGSize(right)
     }
 }
@@ -165,10 +165,14 @@ extension CGSize {
     }
 }
 
-public func abs(_ left: CGSize) -> CGSize {
-    CGSize(width: abs(left.width), height: abs(left.height))
+@inlinable public func abs(_ size: CGSize) -> CGSize {
+    CGSize(width: abs(size.width), height: abs(size.height))
 }
 
-public func min(_ left: CGSize, _ right: CGSize) -> CGSize {
+@inlinable public func min(_ left: CGSize, _ right: CGSize) -> CGSize {
     CGSize(width: min(left.width, right.width), height: min(left.height, right.height))
+}
+
+@inlinable public func max(_ left: CGSize, _ right: CGSize) -> CGSize {
+    CGSize(width: max(left.width, right.width), height: max(left.height, right.height))
 }
