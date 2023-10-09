@@ -68,7 +68,17 @@ extension CGPoint {
         left.x -= right.x
         left.y -= right.y
     }
-    
+
+    public static func *= (left: inout CGPoint, right: CGPoint) {
+        left.x *= right.x
+        left.y *= right.y
+    }
+
+    public static func /= (left: inout CGPoint, right: CGPoint) {
+        left.x /= right.x
+        left.y /= right.y
+    }
+
     // MARK: - CGPoint CGFloat operations
 
     public static func + (left: CGPoint, right: CGFloat) -> CGPoint {
@@ -86,7 +96,27 @@ extension CGPoint {
     public static func / (left: CGPoint, right: CGFloat) -> CGPoint {
         CGPoint(x: left.x / right, y: left.y / right)
     }
-    
+
+    public static func += (left: inout CGPoint, right: CGFloat) {
+        left.x += right
+        left.y += right
+    }
+
+    public static func -= (left: inout CGPoint, right: CGFloat) {
+        left.x -= right
+        left.y -= right
+    }
+
+    public static func *= (left: inout CGPoint, right: CGFloat) {
+        left.x *= right
+        left.y *= right
+    }
+
+    public static func /= (left: inout CGPoint, right: CGFloat) {
+        left.x /= right
+        left.y /= right
+    }
+
     // MARK: - CGPoint CGSize operations
 
     public static func + (left: CGPoint, right: CGSize) -> CGPoint {
@@ -103,6 +133,22 @@ extension CGPoint {
 
     public static func / (left: CGPoint, right: CGSize) -> CGPoint {
         left / CGPoint(right)
+    }
+
+    public static func += (left: inout CGPoint, right: CGSize) {
+        left += CGPoint(right)
+    }
+
+    public static func -= (left: inout CGPoint, right: CGSize) {
+        left -= CGPoint(right)
+    }
+
+    public static func *= (left: inout CGPoint, right: CGSize) {
+        left *= CGPoint(right)
+    }
+
+    public static func /= (left: inout CGPoint, right: CGSize) {
+        left /= CGPoint(right)
     }
 }
 

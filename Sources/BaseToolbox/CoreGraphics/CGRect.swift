@@ -62,7 +62,49 @@ extension CGRect {
     public func rounded(_ rule: FloatingPointRoundingRule) -> Self {
         CGRect(origin: origin.rounded(rule), size: size.rounded(rule))
     }
-    
+
+    // MARK: - CGRect operations
+
+    public static func + (lhs: CGRect, rhs: CGRect) -> CGRect {
+        CGRect(origin: lhs.origin + rhs.origin, size: lhs.size + rhs.size)
+    }
+
+    public static func - (lhs: CGRect, rhs: CGRect) -> CGRect {
+        CGRect(origin: lhs.origin - rhs.origin, size: lhs.size - rhs.size)
+    }
+
+    public static func * (lhs: CGRect, rhs: CGRect) -> CGRect {
+        CGRect(origin: lhs.origin * rhs.origin, size: lhs.size * rhs.size)
+    }
+
+    public static func / (lhs: CGRect, rhs: CGRect) -> CGRect {
+        CGRect(origin: lhs.origin / rhs.origin, size: lhs.size / rhs.size)
+    }
+
+    public static prefix func - (size: CGRect) -> CGRect {
+        CGRect.zero - size
+    }
+
+    public static func += (left: inout CGRect, right: CGRect) {
+        left.origin += right.origin
+        left.size += right.size
+    }
+
+    public static func -= (left: inout CGRect, right: CGRect) {
+        left.origin -= right.origin
+        left.size -= right.size
+    }
+
+    public static func *= (left: inout CGRect, right: CGRect) {
+        left.origin *= right.origin
+        left.size *= right.size
+    }
+
+    public static func /= (left: inout CGRect, right: CGRect) {
+        left.origin /= right.origin
+        left.size /= right.size
+    }
+
     // MARK: - CGRect CGFloat operations
 
     public static func + (left: CGRect, right: CGFloat) -> CGRect {
@@ -81,6 +123,26 @@ extension CGRect {
         CGRect(origin: left.origin / right, size: left.size / right)
     }
 
+    public static func += (left: inout CGRect, right: CGFloat) {
+        left.origin += right
+        left.size += right
+    }
+
+    public static func -= (left: inout CGRect, right: CGFloat) {
+        left.origin -= right
+        left.size -= right
+    }
+
+    public static func *= (left: inout CGRect, right: CGFloat) {
+        left.origin *= right
+        left.size *= right
+    }
+
+    public static func /= (left: inout CGRect, right: CGFloat) {
+        left.origin /= right
+        left.size /= right
+    }
+
     // MARK: - CGRect CGPoint operations
 
     public static func + (left: CGRect, right: CGPoint) -> CGRect {
@@ -91,6 +153,14 @@ extension CGRect {
         CGRect(origin: left.origin - right, size: left.size)
     }
 
+    public static func += (left: inout CGRect, right: CGPoint) {
+        left.origin += right
+    }
+
+    public static func -= (left: inout CGRect, right: CGPoint) {
+        left.origin -= right
+    }
+
     // MARK: - CGRect CGSize operations
 
     public static func + (left: CGRect, right: CGSize) -> CGRect {
@@ -99,6 +169,14 @@ extension CGRect {
 
     public static func - (left: CGRect, right: CGSize) -> CGRect {
         CGRect(origin: left.origin, size: left.size - right)
+    }
+
+    public static func += (left: inout CGRect, right: CGSize) {
+        left.size += right
+    }
+
+    public static func -= (left: inout CGRect, right: CGSize) {
+        left.size -= right
     }
 }
 

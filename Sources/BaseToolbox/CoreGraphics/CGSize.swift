@@ -64,6 +64,21 @@ extension CGSize {
         left.height += right.height
     }
 
+    public static func -= (left: inout CGSize, right: CGSize) {
+        left.width -= right.width
+        left.height -= right.height
+    }
+
+    public static func *= (left: inout CGSize, right: CGSize) {
+        left.width *= right.width
+        left.height *= right.height
+    }
+
+    public static func /= (left: inout CGSize, right: CGSize) {
+        left.width /= right.width
+        left.height /= right.height
+    }
+
     // MARK: - CGSize CGFloat operations
 
     public static func + (left: CGSize, right: CGFloat) -> CGSize {
@@ -82,6 +97,26 @@ extension CGSize {
         CGSize(width: left.width / right, height: left.height / right)
     }
 
+    public static func += (left: inout CGSize, right: CGFloat) {
+        left.width += right
+        left.height += right
+    }
+
+    public static func -= (left: inout CGSize, right: CGFloat) {
+        left.width -= right
+        left.height -= right
+    }
+
+    public static func *= (left: inout CGSize, right: CGFloat) {
+        left.width *= right
+        left.height *= right
+    }
+
+    public static func /= (left: inout CGSize, right: CGFloat) {
+        left.width /= right
+        left.height /= right
+    }
+
     // MARK: - CGSize CGPoint operations
 
     public static func + (left: CGSize, right: CGPoint) -> CGSize {
@@ -98,6 +133,22 @@ extension CGSize {
 
     public static func / (left: CGSize, right: CGPoint) -> CGSize {
         left / CGSize(right)
+    }
+
+    public static func += (left: inout CGSize, right: CGPoint) {
+        left += CGSize(right)
+    }
+
+    public static func -= (left: inout CGSize, right: CGPoint) {
+        left -= CGSize(right)
+    }
+
+    public static func *= (left: inout CGSize, right: CGPoint) {
+        left *= CGSize(right)
+    }
+
+    public static func /= (left: inout CGSize, right: CGPoint) {
+        left /= CGSize(right)
     }
 }
 
