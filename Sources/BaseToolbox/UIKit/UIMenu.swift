@@ -181,3 +181,15 @@ public extension UIAction {
     }
 
 }
+
+@available(iOS 14.0, *)
+public extension UIDeferredMenuElement {
+    @available(iOS 16.0, tvOS 16.0, *)
+    convenience init(
+        @MenuElementsBuilder builder: @escaping () -> [UIMenuElement]
+    ) {
+        self.init { completion in
+            completion(builder())
+        }
+    }
+}
