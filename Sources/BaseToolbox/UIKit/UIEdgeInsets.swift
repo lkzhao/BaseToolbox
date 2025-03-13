@@ -1,3 +1,6 @@
+
+#if canImport(UIKit)
+
 import UIKit
 
 extension UIEdgeInsets {
@@ -117,3 +120,5 @@ public func * (left: UIEdgeInsets, right: CGFloat) -> UIEdgeInsets {
 public func / (left: UIEdgeInsets, right: CGFloat) -> UIEdgeInsets {
     UIEdgeInsets(top: left.top / right, left: left.left / right, bottom: left.bottom / right, right: left.right / right)
 }
+
+#endif

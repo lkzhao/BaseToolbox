@@ -1,5 +1,5 @@
 import Foundation
-import UIKit
+
 
 // Credit: https://github.com/devxoul/Then
 // Copying it here to make it easier to use, and fix project warnings
@@ -68,6 +68,12 @@ extension CGPoint: Then {}
 extension CGRect: Then {}
 extension CGSize: Then {}
 extension CGVector: Then {}
+
+#if canImport(UIKit)
+
+import UIKit
 extension UIEdgeInsets: Then {}
 extension UIOffset: Then {}
 extension UIRectEdge: Then {}
+
+#endif

@@ -1,4 +1,5 @@
-import UIKit
+
+import CoreGraphics
 
 extension CGSize {
     @inlinable public var transposed: CGSize {
@@ -159,11 +160,18 @@ extension CGSize: Hashable {
     }
 }
 
+
+#if canImport(UIKit)
+
+import UIKit
+
 extension CGSize {
     public func inset(by insets: UIEdgeInsets) -> CGSize {
         CGSize(width: width - insets.left - insets.right, height: height - insets.top - insets.bottom)
     }
 }
+
+#endif
 
 @inlinable public func abs(_ size: CGSize) -> CGSize {
     CGSize(width: abs(size.width), height: abs(size.height))

@@ -1,9 +1,5 @@
-//
-//  File.swift
-//  
-//
-//  Created by Luke Zhao on 8/19/22.
-//
+
+#if canImport(UIKit)
 
 import UIKit
 
@@ -193,3 +189,5 @@ public extension UIDeferredMenuElement {
         }
     }
 }
+
+#endif

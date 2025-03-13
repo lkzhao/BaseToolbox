@@ -7,7 +7,8 @@ let package = Package(
   name: "BaseToolbox",
   platforms: [
     .iOS("13.0"),
-    .tvOS("15.0")
+    .tvOS("15.0"),
+    .macOS("13.0")
   ],
   products: [
     .library(

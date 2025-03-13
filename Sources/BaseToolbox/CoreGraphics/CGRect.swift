@@ -1,4 +1,5 @@
-import UIKit
+
+import CoreGraphics
 
 extension CGRect {
     @inlinable public var center: CGPoint {
@@ -187,6 +188,10 @@ extension CGRect: Hashable {
     }
 }
 
+#if canImport(UIKit)
+
+import UIKit
+
 extension CGRect {
     public func closestCorner(point: CGPoint) -> UIRectCorner {
         let corners: [(point: CGPoint, corner: UIRectCorner)] = [
@@ -227,3 +232,5 @@ extension CGRect {
         }
     }
 }
+
+#endif

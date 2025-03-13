@@ -5,6 +5,7 @@
 //  Created by Luke Zhao on 11/20/21.
 //
 
+#if canImport(UIKit)
 import UIKit
 
 extension UIColor {
@@ -174,3 +175,4 @@ extension UIColor {
         return brightness > threshold
     }
 }
+#endif
