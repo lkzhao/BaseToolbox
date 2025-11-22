@@ -215,8 +215,13 @@ extension UIView {
 }
 
 extension UIView {
+    @available(*, deprecated, renamed: "flattenedSubviews")
     public var flattendSubviews: [UIView] {
-        subviews + subviews.flatMap { $0.flattendSubviews }
+        subviews + subviews.flatMap { $0.flattenedSubviews }
+    }
+
+    public var flattenedSubviews: [UIView] {
+        subviews + subviews.flatMap { $0.flattenedSubviews }
     }
 
     public func superviewMatching<T: UIView>(type: T.Type) -> T? {
@@ -328,7 +333,7 @@ extension UIView {
 
     @available(*, deprecated, message: "Please use `subviewPassing(test:)`, `viewPassing(test:)`, `subviewMatching(type:)`, or `viewMatching(type:)` instead")
     public func findSubview<ViewType: UIView>(checker: ((ViewType) -> Bool)? = nil) -> ViewType? {
-        for subview in [self] + flattendSubviews.reversed() {
+        for subview in [self] + flattenedSubviews.reversed() {
             if let subview = subview as? ViewType, checker?(subview) != false {
                 return subview
             }
