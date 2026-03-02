@@ -79,22 +79,28 @@ extension UIColor {
         UIColor(dark: lightMode, light: darkMode)
     }
 
+    @inlinable
+    public var rgba: (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) {
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        if getRed(&red, green: &green, blue: &blue, alpha: &alpha) {
+            return (red, green, blue, alpha)
+        }
+        var white: CGFloat = 0
+        if getWhite(&white, alpha: &alpha) {
+            return (white, white, white, alpha)
+        }
+        return (0, 0, 0, 0)
+    }
+
     public var alpha: CGFloat {
-        var r: CGFloat = 0
-        var g: CGFloat = 0
-        var b: CGFloat = 0
-        var a: CGFloat = 0
-        getRed(&r, green: &g, blue: &b, alpha: &a)
-        return a
+        rgba.a
     }
 
     public var hexString: String {
-        var r: CGFloat = 0
-        var g: CGFloat = 0
-        var b: CGFloat = 0
-        var a: CGFloat = 0
-
-        getRed(&r, green: &g, blue: &b, alpha: &a)
+        var (r, g, b, a) = rgba
 
         let rgb: Int = (Int)(r * 255) << 16 | (Int)(g * 255) << 8 | (Int)(b * 255) << 0
 
@@ -102,12 +108,7 @@ extension UIColor {
     }
 
     public var hexStringWithAlpha: String {
-        var r: CGFloat = 0
-        var g: CGFloat = 0
-        var b: CGFloat = 0
-        var a: CGFloat = 0
-
-        getRed(&r, green: &g, blue: &b, alpha: &a)
+        var (r, g, b, a) = rgba
 
         if a < 1.0 {
             let rgba: Int = (Int)(r * 255) << 24 | (Int)(g * 255) << 16 | (Int)(b * 255) << 8 | (Int)(a * 255) << 0
@@ -127,30 +128,21 @@ extension UIColor {
     }
 
     public func mixWithColor(_ color: UIColor, amount: CGFloat = 0.25) -> UIColor {
-        var r1: CGFloat = 0
-        var g1: CGFloat = 0
-        var b1: CGFloat = 0
-        var alpha1: CGFloat = 0
-        var r2: CGFloat = 0
-        var g2: CGFloat = 0
-        var b2: CGFloat = 0
-        var alpha2: CGFloat = 0
-
-        getRed(&r1, green: &g1, blue: &b1, alpha: &alpha1)
-        color.getRed(&r2, green: &g2, blue: &b2, alpha: &alpha2)
+        let (r1, g1, b1, a1) = rgba
+        let (r2, g2, b2, _) = color.rgba
         return UIColor(
             red: r1 * (1.0 - amount) + r2 * amount,
             green: g1 * (1.0 - amount) + g2 * amount,
             blue: b1 * (1.0 - amount) + b2 * amount,
-            alpha: alpha1)
+            alpha: a1)
     }
 
     public func dynamicMixWithColor(_ color: UIColor, amount: CGFloat = 0.25) -> UIColor {
         UIColor { trait in
             if trait.userInterfaceStyle == .dark {
-                return self.darkMode.mixWithColor(color.darkMode, amount: amount)
+                self.darkMode.mixWithColor(color.darkMode, amount: amount)
             } else {
-                return self.lightMode.mixWithColor(color.lightMode, amount: amount)
+                self.lightMode.mixWithColor(color.lightMode, amount: amount)
             }
         }
     }
@@ -172,7 +164,7 @@ extension UIColor {
     }
 
     public func isLight(threshold: CGFloat = 0.7) -> Bool {
-        return brightness > threshold
+        brightness > threshold
     }
 }
 #endif
