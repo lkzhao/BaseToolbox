@@ -73,7 +73,7 @@ extension UIView {
         set {
             objc_setAssociatedObject(self, &AssociateKey.borderColor, newValue, .OBJC_ASSOCIATION_RETAIN)
             layer.borderColor = borderColor?.resolvedColor(with: traitCollection).cgColor
-            if #available(iOS 17.0, *) {
+            if #available(iOS 17.0, tvOS 17.0, *) {
                 registerTraitCollectionChangeIfNeeded()
             } else {
                 _ = UIView.swizzleTraitCollection
@@ -88,7 +88,7 @@ extension UIView {
         set {
             objc_setAssociatedObject(self, &AssociateKey.shadowColor, newValue, .OBJC_ASSOCIATION_RETAIN)
             layer.shadowColor = shadowColor?.resolvedColor(with: traitCollection).cgColor
-            if #available(iOS 17.0, *) {
+            if #available(iOS 17.0, tvOS 17.0, *) {
                 registerTraitCollectionChangeIfNeeded()
             } else {
                 _ = UIView.swizzleTraitCollection
@@ -160,7 +160,7 @@ extension UIView {
     }
 
     private func registerTraitCollectionChangeIfNeeded() {
-        if #available(iOS 17.0, *), !hasRegisteredForTraitCollectionChange {
+        if #available(iOS 17.0, tvOS 17.0, *), !hasRegisteredForTraitCollectionChange {
             hasRegisteredForTraitCollectionChange = true
             registerForTraitChanges([UITraitUserInterfaceStyle.self]) { (view: Self, previousTraitCollection) in
                 if view.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
